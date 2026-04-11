@@ -27,7 +27,7 @@
 23. [Versionierung und Updates](#23-versionierung-und-updates)
 24. [Technischer Hintergrund — APIs und Services](#24-technischer-hintergrund--apis-und-services)
 25. [FAQ — Häufig gestellte Fragen](#25-faq--häufig-gestellte-fragen)
-26. [Neuerungen in v3.0.6–v4.3.1 (Changelog)](#26-neuerungen-in-v306v420-changelog)
+26. [Neuerungen in v3.0.6–v4.2.1 (Changelog)](#26-neuerungen-in-v306v420-changelog)
 
 ---
 
@@ -1152,7 +1152,7 @@ Wenn du deine eigene Version von TwitchCoPilot hosten möchtest, brauchst du **k
 
 Lade den Source-Tar von GitHub herunter:
 ```
-twitch-copilot-v4.3.1-source.tar
+twitch-copilot-v4.2.1-source.tar
 ```
 
 Oder klone das Repository:
@@ -1388,9 +1388,9 @@ Verwendet für: Nav-Pfeil, Drive-Info-Panel, Wetter-Widget, POI-Shortcuts, Votin
 Jede Version wird als **kombinierte Tar-Datei** veröffentlicht:
 
 ```
-twitch-copilot-v4.3.1.tar              ← Die EINE Datei zum Download
-├── twitch-copilot-v4.3.1-source.tar   ← Kompletter Source Code + README + CHANGELOG + VERSION
-├── twitch-copilot-v4.3.1-static.tar   ← Production Build (dist/) + README + CHANGELOG + VERSION
+twitch-copilot-v4.2.1.tar              ← Die EINE Datei zum Download
+├── twitch-copilot-v4.2.1-source.tar   ← Kompletter Source Code + README + CHANGELOG + VERSION
+├── twitch-copilot-v4.2.1-static.tar   ← Production Build (dist/) + README + CHANGELOG + VERSION
 ├── README.md                           ← Entwickler-Dokumentation
 ├── CHANGELOG.md                        ← Versionshistorie
 └── VERSION                             ← Versionsnummer
@@ -1537,11 +1537,11 @@ Built with 💜 for the bike streaming community
 
 ---
 
-## 26. Neuerungen in v3.0.6–v4.3.1 (Changelog)
+## 26. Neuerungen in v3.0.6–v4.2.1 (Changelog)
 
 Diese Sektion fasst alle wichtigen Änderungen zusammen, die seit Anleitung v3.0.5 eingefügt wurden.
 
-### v4.3.1 — Complete Icon Redesign
+### v4.2.1 — Complete Icon Redesign
 
 - **Neues App-Icon (512x512):** Fahrrad-Wohnmobil im Flat-Comic-Style mit Twitch-Lila (#9146FF) Hintergrund und Neon-Grün (#39FF14) Navigations-Route. Bold Outlines, klare geometrische Formen — optimiert für PWA und App-Store.
 - **Neues Favicon (SVG + PNG):** Minimalistisches Fahrrad-Rad mit GPS-Pin in Neon-Grün auf Twitch-Lila. Squircle-Form, hochkontrast, erkennbar ab 32x32 Pixel.
