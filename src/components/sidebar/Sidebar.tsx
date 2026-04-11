@@ -51,12 +51,12 @@ export function Sidebar() {
   const routeSelectionMode = useNavigationStore((s) => s.routeSelectionMode);
   const isCompact = routeSelectionMode && isDesktop;
 
-  // Auto-close sidebar on mobile when navigation starts
+  // Auto-close sidebar on mobile when navigation starts OR route selection mode activates
   useEffect(() => {
-    if (isNavigating && mobileOpen && !isDesktop) {
+    if ((isNavigating || routeSelectionMode) && mobileOpen && !isDesktop) {
       setMobileOpen(false);
     }
-  }, [isNavigating]);
+  }, [isNavigating, routeSelectionMode, mobileOpen, isDesktop]);
 
   const startXRef = useRef(0);
   const startWidthRef = useRef(0);

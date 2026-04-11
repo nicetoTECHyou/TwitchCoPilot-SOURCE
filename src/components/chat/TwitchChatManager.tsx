@@ -409,7 +409,7 @@ export default function TwitchChatManager() {
       switch (command) {
       // ── !version: Show build version (diagnostic) ──
       case 'version': {
-        sendChat('🔧 TwitchCoPilot v4.2.1 — Build: 2026-04-11');
+        sendChat('🔧 TwitchCoPilot v4.3.1 — Build: 2026-04-11');
         console.log('[TwitchChatManager] !version handled, sendChat called');
         break;
       }

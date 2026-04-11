@@ -404,8 +404,10 @@ export default function MapContainer() {
       properties: {},
     });
 
-    // Only fitBounds on actual route change, not on style reload
-    if (!styleChangedRef.current) {
+    // Only fitBounds on actual route change, not on style reload.
+    // IMPORTANT: Skip fitBounds entirely when routeSelectionMode is active —
+    // combinedBounds with overlay-aware padding is handled by RouteTab.calculateRoute()
+    if (!styleChangedRef.current && !routeSelectionMode) {
       const bounds = new maplibregl.LngLatBounds();
       route.geometry.forEach(([lng, lat]) => bounds.extend([Number(lng) || 0, Number(lat) || 0]));
       const isMobile = window.innerWidth < 768;
@@ -415,7 +417,7 @@ export default function MapContainer() {
       map.fitBounds(bounds, { padding, duration: 1000 });
     }
     styleChangedRef.current = false;
-  }, [route, showRouteLine, styleLoadCount]);
+  }, [route, showRouteLine, styleLoadCount, routeSelectionMode]);
 
   // ─── Alternative routes (with visibility toggle) ────────────────────────
   useEffect(() => {

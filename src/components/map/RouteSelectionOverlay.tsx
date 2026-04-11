@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Footprints, Shield, Navigation, Clock, Mountain, TrendingDown } from 'lucide-react';
+import { Zap, Footprints, Shield, Navigation, Clock, Mountain, TrendingDown, X } from 'lucide-react';
 import { useNavigationStore, type RouteResult } from '@/store/useNavigationStore';
 import { t } from '@/lib/i18n';
 import type { RouteInfo } from '@/types';
@@ -37,6 +37,27 @@ function formatOverlayDuration(seconds: number): string {
   }
   return `${minutes} ${t('general.min')}`;
 }
+
+// Stagger animation variants for route cards
+const cardVariants = {
+  hidden: (i: number) => ({
+    y: 20,
+    opacity: 0,
+    scale: 0.95,
+    transition: { delay: i * 0.08, duration: 0.3, ease: 'easeOut' as const },
+  }),
+  visible: (i: number) => ({
+    y: 0,
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delay: i * 0.08,
+      type: 'spring' as const,
+      damping: 25,
+      stiffness: 300,
+    },
+  }),
+};
 
 export default function RouteSelectionOverlay() {
   const routeSelectionMode = useNavigationStore((s) => s.routeSelectionMode);
@@ -110,7 +131,7 @@ export default function RouteSelectionOverlay() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[45] w-[calc(100vw-2rem)] max-w-lg"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[45] w-[calc(100%-2rem)] max-w-lg"
         >
           <div className="glass rounded-xl p-3 shadow-xl">
             {/* Header with close button */}
@@ -123,21 +144,25 @@ export default function RouteSelectionOverlay() {
                 className="size-6 rounded-md flex items-center justify-center hover:bg-foreground/10 transition-colors cursor-pointer text-foreground/50 hover:text-foreground"
                 aria-label={t('general.close')}
               >
-                <Navigation className="size-3 rotate-180" />
+                <X className="size-3.5" />
               </button>
             </div>
 
-            {/* Route option buttons */}
+            {/* Route option buttons with staggered animation */}
             <div className="flex gap-2 overflow-x-auto pb-1">
               {allRouteResults.map((routeResult, idx) => {
                 const isSelected = idx === selectedIdx;
                 return (
-                  <button
+                  <motion.button
                     key={`route-${idx}`}
+                    custom={idx}
+                    variants={cardVariants}
+                    initial="hidden"
+                    animate="visible"
                     onClick={() => handleRouteClick(idx)}
                     className={`
                       flex-shrink-0 flex flex-col items-center gap-1.5 px-3 py-2.5 rounded-lg
-                      transition-all cursor-pointer min-w-[100px]
+                      transition-colors cursor-pointer min-w-[100px]
                       ${isSelected
                         ? 'bg-primary text-primary-foreground shadow-lg scale-105'
                         : 'bg-foreground/5 text-foreground/70 hover:bg-foreground/10'
@@ -174,12 +199,12 @@ export default function RouteSelectionOverlay() {
                         {Math.round(routeResult.descent)}m
                       </span>
                     </div>
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
 
-            {/* Start navigation button */}
+            {/* Start navigation button with spring animation */}
             <AnimatePresence>
               {showStartButton && (
                 <motion.div
