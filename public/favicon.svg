@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect x="4" y="4" width="92" height="92" rx="22" fill="#9146FF"/>
+  <!-- Bicycle wheel -->
+  <circle cx="44" cy="54" r="28" fill="none" stroke="white" stroke-width="5"/>
+  <circle cx="44" cy="54" r="4" fill="white"/>
+  <!-- Spokes -->
+  <line x1="44" y1="26" x2="44" y2="82" stroke="white" stroke-width="2.5"/>
+  <line x1="16" y1="54" x2="72" y2="54" stroke="white" stroke-width="2.5"/>
+  <line x1="24" y1="34" x2="64" y2="74" stroke="white" stroke-width="2"/>
+  <line x1="24" y1="74" x2="64" y2="34" stroke="white" stroke-width="2"/>
+  <!-- GPS Pin -->
+  <circle cx="72" cy="28" r="12" fill="#39FF14"/>
+  <circle cx="72" cy="28" r="5" fill="white"/>
+  <circle cx="72" cy="28" r="2" fill="#39FF14"/>
+  <!-- Pin pointer -->
+  <polygon points="72,40 68,34 76,34" fill="#39FF14"/>
+</svg>
