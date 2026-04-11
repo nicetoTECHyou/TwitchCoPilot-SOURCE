@@ -1,0 +1,171 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* ALL colors use var() indirection so runtime JS changes work in Tailwind v4 */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-border: var(--border);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --color-nav-arrow: #00FF88;
+}
+
+/* Default dark values (overridden by JS applyThemeToDOM) */
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.12 0.02 270);
+  --foreground: oklch(0.95 0 0);
+  --muted: oklch(0.15 0.02 270);
+  --muted-foreground: oklch(0.55 0.01 270);
+  --popover: oklch(0.18 0.02 270);
+  --popover-foreground: oklch(0.95 0 0);
+  --card: oklch(0.14 0.02 270);
+  --card-foreground: oklch(0.95 0 0);
+  --input: oklch(0.25 0.02 270);
+  --ring: oklch(0.55 0.01 270);
+  --destructive: #E74C3C;
+  --destructive-foreground: #ffffff;
+  --primary: #9146FF;
+  --primary-foreground: #ffffff;
+  --accent: #00D4AA;
+  --accent-foreground: #000000;
+  --danger: #E74C3C;
+  --warning: #F39C12;
+  --success: #27AE60;
+  --sidebar: oklch(0.15 0.02 270);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.25 0.02 270);
+  --surface: oklch(0.18 0.02 270);
+  --surface-foreground: oklch(0.95 0 0);
+  --border: oklch(0.3 0.02 270);
+}
+
+/* MapLibre overrides */
+.maplibregl-popup-content {
+  background: var(--color-surface) !important;
+  color: var(--color-surface-foreground) !important;
+  border-radius: var(--radius) !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+}
+
+.maplibregl-popup-close-button {
+  color: var(--color-surface-foreground) !important;
+}
+
+/* POI popups must appear ABOVE markers */
+.maplibregl-popup {
+  z-index: 20 !important;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(20, 20, 40, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+:root:not(.dark) .glass {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Glass hover — adapts to dark/light */
+.glass:hover,
+.glass.hover {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+}
+
+:root:not(.dark) .glass:hover,
+:root:not(.dark) .glass.hover {
+  background: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: oklch(0.4 0.02 270); border-radius: 3px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: oklch(0.5 0.02 270); }
+
+/* Pulse animation for GPS marker */
+@keyframes gps-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 212, 170, 0.7); }
+  50% { box-shadow: 0 0 0 15px rgba(0, 212, 170, 0); }
+}
+.gps-pulse { animation: gps-pulse 2s infinite; }
+
+/* Nav arrow glow */
+@keyframes nav-glow {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.5)); }
+  50% { filter: drop-shadow(0 0 16px rgba(0, 255, 136, 0.8)); }
+}
+.nav-glow { animation: nav-glow 2s infinite; }
+
+/* Hide maplibre attribution for cleaner look (move to settings) */
+.maplibregl-ctrl-attrib { display: none !important; }
+
+/* ── Mobile Zoom Prevention ─────────────────────────────────── */
+/*
+ * iOS Safari auto-zooms into inputs with font-size < 16px.
+ * Since iOS 16.4, the viewport "user-scalable=no" is ignored,
+ * so we force 16px on all form elements at mobile breakpoints.
+ * The map (MapLibre GL) handles its own gestures independently.
+ */
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Prevent double-tap-to-zoom on the UI (map handles its own gestures via JS) */
+html, body, #root {
+  touch-action: manipulation;
+}
+
+/* Allow full gesture control on MapLibre map (overrides the manipulation above) */
+.maplibregl-map,
+.maplibregl-canvas,
+.maplibregl-ctrl-group,
+.maplibregl-ctrl button {
+  touch-action: none;
+}
+
+body {
+  overflow: hidden;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
